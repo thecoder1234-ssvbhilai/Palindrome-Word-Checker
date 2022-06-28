@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: poppins, sans-serif
+        }
+        .inputs input:focus{
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+        .inputs button{
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .inputs button.active{
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-[100vh] bg-[#aa57cc]">
+    <div class="bg-[#fff] max-w-[500px] pt-[20px] px-[25px] pb-[15px] rounded-[7px]">
+        <header>
+            <h1 class="text-3xl font-medium font-[21px]">Palindrome Checker</h1>
+            <p class="mt-[5px] text-[18px] text-[#474747]">A palindrome is a word or phrase that reads the same backwards as forwards, e.g. level, refer.</p>
+        </header>
+        <div class="inputs mt-[20px] mb-[27px]">
+            <input type="text" class="focus:outline-none w-full h-[60px] outline-none rounded-[5px] text-[19px] px-[17px]" style="border: 1px solid #999;" placeholder="Enter text or number">
+            <button class="w-full h-[56px] outline-none border-none cursor-pointer mt-[20px] text-[17px] text-[#fff] rounded-[5px] bg-[#aa57cc]">Check Palindrome</button>
+        </div>
+        <p class="info-txt hidden text-[19px] text-center mb-[18px]"></p>
+    </div>
+
+    <script>
+        const txtInput = document.querySelector('.inputs input'),
+        checkBtn = document.querySelector('.inputs button'),
+        infoTxt = document.querySelector('.info-txt');
+
+        checkBtn.addEventListener("click", () => {
+            // spliting user input character, reversing them,
+            // and joining them in a single word
+            let reverseInput = filterInput.split('').reverse().join("");
+            infoTxt.style.display = "block";
+            if(filterInput != reverseInput) {
+                return infoTxt.innerHTML = `No, <span class="text-[#aa57cc]">'${txtInput.value}'</span> isn't a palindrome.`
+            }
+            infoTxt.innerHTML = `Yes, <span class="text-[#aa57cc]">'${txtInput.value}'</span> is a palindrome.`
+        })
+
+        txtInput.addEventListener("keyup", () => {
+            //removing spaces & all special characters from entered value
+            filterInput = txtInput.value.toLowerCase().replace(/[^A-Z0-9]/ig, '');
+            if(filterInput){
+                return checkBtn.classList.add('active');
+            }
+            checkBtn.classList.remove('active');
+        })
+    </script>
+
+</body>
+</html>
